@@ -201,7 +201,7 @@ public class PolygonUserInterface implements ActionListener {
 					System.err.println(e2.getMessage());
 				}
 				try {
-					noOfObjsInserted = WriteToDB.writeToTable();
+					noOfObjsInserted = PolygonDBInteraction.writePolygonsToTable();
 					long endTime = (System.nanoTime() - startTime) / 1000000;
 					lblSaveDeleteTime.setText("Time taken = " + endTime + " millisecs");
 					lblSaveDeleteOutput.setText( noOfObjsInserted + " Objects inserted into the database");

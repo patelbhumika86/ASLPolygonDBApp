@@ -1,0 +1,46 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.postgresql.copy.CopyManager;
+import org.postgresql.core.BaseConnection;
+
+public class PolygonDBInteraction {
+	
+	static String file = GeneratePolygonCSV.outputFileName;
+
+	static Connection connectToDB() throws ClassNotFoundException, SQLException {
+		String dbURL = "jdbc:postgresql://localhost:5432/asl";
+		String user = "postgres";
+		String password = "password";
+		Class.forName("org.postgresql.Driver");
+
+		Connection con = DriverManager.getConnection(dbURL, user, password);
+		return con;
+	}
+
+	public static long writePolygonsToTable() throws ClassNotFoundException, SQLException, IOException{
+		
+		long numberOfRowsAdded = 0;
+		Connection con = connectToDB();
+
+		CopyManager copyManager = new CopyManager((BaseConnection) con);
+		String bulkInsertQuery = "COPY polygontable(geom,metadata) FROM STDIN WITH(DELIMITER '|')";
+
+		File fileDir = new File(PolygonDBInteraction.file);
+		Reader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF-8"));
+		try {
+			numberOfRowsAdded = copyManager.copyIn(bulkInsertQuery, in);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return numberOfRowsAdded;
+	}
+}
