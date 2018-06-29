@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
@@ -42,5 +43,24 @@ public class PolygonDBInteraction {
 			System.out.println(e.getMessage());
 		}
 		return numberOfRowsAdded;
+	}
+	
+public static int deleteObjsFromTable() throws ClassNotFoundException, SQLException, IOException {
+		
+		Connection con = connectToDB();
+		Statement stmt = con.createStatement();
+		String geom = "";
+		int objsDeleted = 0;
+
+		File fileDir = new File(PolygonDBInteraction.file);
+		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF-8"));
+
+		while ((geom = in.readLine()) != null) {
+			String deleteQuery = "DELETE FROM polygontable WHERE geom='" + geom + "'";
+			objsDeleted += stmt.executeUpdate(deleteQuery);
+			geom = "";
+		}
+		in.close();
+		return objsDeleted;
 	}
 }

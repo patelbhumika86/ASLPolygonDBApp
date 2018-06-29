@@ -212,29 +212,29 @@ public class PolygonUserInterface implements ActionListener {
 			}
 		}
 
-//		} else if (e.getSource().equals(btnDeleteObjects)) {
-////			clearAllLabeles();
-//			if (inputFilePath.isEmpty() || inputFilePath.length() == 0) {
-//				lblSaveDeleteOutput.setText("Please enter a file path for the input file of objects to be deleted");
-//			} else {
-//				long startTime = System.nanoTime();
-//				try {
-//					Preporcessing.generateTINFile(inputFilePath, false);
-//				} catch (IOException e2) {
-//					lblSaveDeleteOutput.setText("Error: Problem occured during object conversion to TIN");
-//					System.err.println(e2.getMessage());
-//				}
-//				try {
-//					int objsDeleted = DBInteraction.deleteObjsFromTable();
-//					long endTime = (System.nanoTime() - startTime) / 1000000;
-//					lblSaveDeleteTime.setText("Time taken = " + endTime + " millisecs");
-//					lblSaveDeleteOutput.setText(objsDeleted + " Objects deleted from database");
-//				} catch (ClassNotFoundException | SQLException | IOException e1) {
-//					System.out.println(e1.getMessage());
-//					lblSaveDeleteOutput.setText("Path or File not valid");
-//				}
-//			}
-//		}
+		 else if (e.getSource().equals(btnDeleteObjects)) {
+//			clearAllLabeles();
+			if (inputFilePath.isEmpty() || inputFilePath.length() == 0) {
+				lblSaveDeleteOutput.setText("Please enter a file path for the input file of objects to be deleted");
+			} else {
+				long startTime = System.nanoTime();
+				try {
+					PolygonPreprocessing.generatePolygonFile(inputFilePath, false);
+				} catch (IOException e2) {
+					lblSaveDeleteOutput.setText("Error: Problem occured during object conversion to TIN");
+					System.err.println(e2.getMessage());
+				}
+				try {
+					int objsDeleted = PolygonDBInteraction.deleteObjsFromTable();
+					long endTime = (System.nanoTime() - startTime) / 1000000;
+					lblSaveDeleteTime.setText("Time taken = " + endTime + " millisecs");
+					lblSaveDeleteOutput.setText(objsDeleted + " Objects deleted from database");
+				} catch (ClassNotFoundException | SQLException | IOException e1) {
+					System.out.println(e1.getMessage());
+					lblSaveDeleteOutput.setText("Path or File not valid");
+				}
+			}
+		}
 
 //		else if (e.getSource().equals(btnFindIntersectingObjects)) {
 ////			clearAllLabeles();
