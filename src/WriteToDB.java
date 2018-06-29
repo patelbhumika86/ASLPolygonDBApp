@@ -14,11 +14,11 @@ import org.postgresql.core.BaseConnection;
 
 public class WriteToDB {
 
-	public static void writeToTable() throws ClassNotFoundException, SQLException, IOException{
+	public static long writeToTable() throws ClassNotFoundException, SQLException, IOException{
 		String dbURL = "jdbc:postgresql://localhost:5432/asl";
 		String user = "postgres";
 		String password = "password";
-		String file = "/Users/bhumi/Documents/Capstone/Testfiles/" + "opint1.txt";
+		String file = "/Users/bhumi/Documents/Capstone/Testfiles/" + "opPolygon.txt";
         Class.forName("org.postgresql.Driver");
 
         Connection con = DriverManager.getConnection(dbURL, user, password);
@@ -29,8 +29,10 @@ public class WriteToDB {
         File fileDir = new File(file);
         Reader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileDir), "UTF-8"));
 
-        copyManager.copyIn("COPY polygontable(geom) FROM STDIN", in );
+        String bulkInsertQuery = "COPY polygontable(geom,metadata) FROM STDIN WITH(DELIMITER '|')";
+        long numberOfRowsAdded = copyManager.copyIn(bulkInsertQuery, in );
+        
+        return numberOfRowsAdded;
 
-        System.err.println("Done.");
 	}
 }
