@@ -45,7 +45,7 @@ public class PolygonUserInterface implements ActionListener {
 	
 
 	PolygonUserInterface() {
-		JFrame f = new JFrame("Database Interface");
+		JFrame f = new JFrame("Polygon Database Interface");
 		
 		btnSaveObjects = new JButton("Save Objects");
 		btnSaveObjects.setBounds(208, 144, 140, 40);
@@ -234,38 +234,36 @@ public class PolygonUserInterface implements ActionListener {
 					lblSaveDeleteOutput.setText("Path or File not valid");
 				}
 			}
-		}
-
-//		else if (e.getSource().equals(btnFindIntersectingObjects)) {
-////			clearAllLabeles();
-//			SpatialQuery q = new SpatialQuery();
-//			PGbox3d inputBoundingBox = null;
-//			try {
-//
-//				double x = Double.parseDouble(textfieldLLBX.getText());
-//				double y = Double.parseDouble(textfieldLLBY.getText());
-//				double z = Double.parseDouble(textfieldLLBZ.getText());
-//
-//				double x1 = Double.parseDouble(textfieldURTX.getText());
-//				double y1 = Double.parseDouble(textfieldURTY.getText());
-//				double z1 = Double.parseDouble(textfieldURTZ.getText());
-//
-//				inputBoundingBox = new PGbox3d(new Point(x, y, z), new Point(x1, y1, z1));
-//
-//				long startTime = System.nanoTime();
-//				long onlyfetchTime = q.findIntersectingObjs(inputBoundingBox);
-//				long endTime = (System.nanoTime() - startTime) / 1000000;
-//				lblQueryFetchTime.setText("Time taken only for fetching results = " + onlyfetchTime + " millisecs");
-//				lblQueryTotalTime.setText("Total Time taken including writing output file = " + endTime + " millisecs");
-//				lblQueryOutput.setText("Intersecting objects are stored in file =" + SpatialQuery.queryOutputFile);
-//			} catch (NumberFormatException ignore) {
-//				lblQueryOutput.setText("Invalid Input - please enter valid values for bounding box");
-//			} catch (ClassNotFoundException e1) {
-//				lblQueryOutput.setText("Error finding the intersection");
-//			}
-//			
-//		}
+		 }
 		
+		else if (e.getSource().equals(btnFindIntersectingObjects)) {
+
+			PolygonSpatialQuery q = new PolygonSpatialQuery();
+			PGbox3d inputBoundingBox = null;
+			try {
+
+				double x = Double.parseDouble(textfieldLLBX.getText());
+				double y = Double.parseDouble(textfieldLLBY.getText());
+				double z = Double.parseDouble(textfieldLLBZ.getText());
+
+				double x1 = Double.parseDouble(textfieldURTX.getText());
+				double y1 = Double.parseDouble(textfieldURTY.getText());
+				double z1 = Double.parseDouble(textfieldURTZ.getText());
+
+				inputBoundingBox = new PGbox3d(new Point(x, y, z), new Point(x1, y1, z1));
+
+				long startTime = System.nanoTime();
+				long onlyfetchTime = q.findIntersectingObjs(inputBoundingBox);
+				long endTime = (System.nanoTime() - startTime) / 1000000;
+				lblQueryFetchTime.setText("Time taken only for fetching results = " + onlyfetchTime + " millisecs");
+				lblQueryTotalTime.setText("Total Time taken including writing output file = " + endTime + " millisecs");
+				lblQueryOutput.setText("Intersecting objects are stored in file =" + PolygonSpatialQuery.queryOutputFile);
+			} catch (NumberFormatException ignore) {
+				lblQueryOutput.setText("Invalid Input - please enter valid values for bounding box");
+			} catch (ClassNotFoundException e1) {
+				lblQueryOutput.setText("Error finding the intersection");
+			}			
+		}
 	}
 
 	public void clearAllLabeles() {

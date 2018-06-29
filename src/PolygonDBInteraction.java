@@ -15,7 +15,7 @@ import org.postgresql.core.BaseConnection;
 
 public class PolygonDBInteraction {
 	
-	static String file = GeneratePolygonCSV.outputFileName;
+	static String file = PolygonGenerateCSV.outputFileName;
 
 	static Connection connectToDB() throws ClassNotFoundException, SQLException {
 		String dbURL = "jdbc:postgresql://localhost:5432/asl";

@@ -23,7 +23,7 @@ public class PolygonPreprocessing {
 			System.out.println(e1.getMessage());
 		}
 		
-		GeneratePolygonCSV.deleteOldFile();
+		PolygonGenerateCSV.deleteOldFile();
 
 		String st = new String();
 		StringBuffer metadata = new StringBuffer();
@@ -49,7 +49,7 @@ public class PolygonPreprocessing {
 					polygon.append(firstCoord);
 					polygon.append("))");
 
-					GeneratePolygonCSV.writeFile(polygon, metadata);
+					PolygonGenerateCSV.writeFile(polygon, metadata);
 
 					//create arrayList for coordinates of this object
 					obj.coordinateList = new ArrayList<String>();		
@@ -70,10 +70,10 @@ public class PolygonPreprocessing {
 		polygon.append(firstCoord);
 		polygon.append("))");
 
-		GeneratePolygonCSV.writeFile(polygon, metadata);
+		PolygonGenerateCSV.writeFile(polygon, metadata);
 		
 		if (addTerminationChar) {
-			GeneratePolygonCSV.addFileTermination("\\.");
+			PolygonGenerateCSV.addFileTermination("\\.");
 		}
 
 		br.close();

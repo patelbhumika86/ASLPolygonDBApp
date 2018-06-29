@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class GeneratePolygonCSV {
+public class PolygonGenerateCSV {
 	public static String outputFileName = "/Users/bhumi/Documents/Capstone/Testfiles/" + "opPolygon.txt";
 	static String ErrorLog = "/Users/bhumi/Documents/Capstone/Testfiles/" + "Err1.txt";
 	
